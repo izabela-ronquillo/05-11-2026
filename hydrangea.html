@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Hydrangea</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 30% 20%, #1e103f, #0c0725, #050217);
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* floating ethereal orbs */
+        .dream-mist {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .mist {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200, 160, 255, 0.2), rgba(120, 80, 200, 0));
+            filter: blur(70px);
+            animation: floatDream 22s infinite alternate;
+        }
+        .m1 { width: 55vw; height: 55vw; top: -20%; left: -10%; background: radial-gradient(circle, rgba(210, 170, 255, 0.25), rgba(100, 60, 180, 0)); }
+        .m2 { width: 45vw; height: 45vw; bottom: -15%; right: -10%; background: radial-gradient(circle, rgba(170, 120, 250, 0.2), rgba(80, 50, 160, 0)); animation-duration: 28s; }
+        .m3 { width: 35vw; height: 35vw; top: 40%; left: 30%; background: radial-gradient(circle, rgba(190, 140, 255, 0.2), rgba(70, 45, 170, 0)); animation-duration: 18s; }
+
+        @keyframes floatDream {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+            100% { transform: translate(6%, 8%) scale(1.2); opacity: 0.8; }
+        }
+
+        /* main message card */
+        .message-sanctuary {
+            background: rgba(25, 15, 55, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 3rem;
+            border: 1px solid rgba(200, 150, 255, 0.5);
+            box-shadow: 0 40px 65px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(220, 170, 255, 0.2);
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 700px;
+            z-index: 10;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        /* rose image section */
+        .rose-image {
+            margin-bottom: 1.5rem;
+        }
+        .rose-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(210, 160, 255, 0.6);
+            transition: transform 0.3s;
+        }
+        .rose-img:hover {
+            transform: scale(1.02);
+        }
+
+        /* title */
+        .flower-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f5e6ff, #d9b8ff, #c294ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.3px;
+        }
+
+        /* the heartfelt message */
+        .message-content {
+            background: rgba(45, 28, 85, 0.5);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #e2b0ff;
+            text-align: left;
+        }
+        .message-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #f0e6ff;
+            font-weight: 400;
+            font-family: 'Quicksand', sans-serif;
+        }
+        .message-text i {
+            color: #ffccee;
+            margin-right: 6px;
+        }
+        .signature {
+            margin-top: 1.2rem;
+            text-align: right;
+            font-style: italic;
+            color: #cfb3ff;
+            font-size: 0.95rem;
+            border-top: 1px dashed rgba(200, 150, 255, 0.4);
+            padding-top: 0.8rem;
+        }
+
+        /* symbolic elements */
+        .divider {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 1rem 0;
+            color: #b28eff;
+            font-size: 0.7rem;
+        }
+        .petal-icon {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        /* back button */
+        .back-btn {
+            background: rgba(80, 50, 140, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(190, 140, 255, 0.6);
+            padding: 10px 28px;
+            border-radius: 3rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #f0e2ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        .back-btn:hover {
+            background: rgba(110, 70, 180, 0.85);
+            border-color: #ffc4f0;
+            transform: translateY(-3px);
+            gap: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .back-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* footer */
+        .page-footer {
+            margin-top: 1.8rem;
+            font-size: 0.65rem;
+            color: #8e76c0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* responsive */
+        @media (max-width: 550px) {
+            .message-sanctuary { padding: 1.5rem; }
+            .flower-title { font-size: 2rem; }
+            .message-text { font-size: 0.95rem; }
+            .rose-img { width: 120px; height: 120px; }
+        }
+
+        /* delicate animation */
+        @keyframes gentleReveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message-sanctuary {
+            animation: gentleReveal 0.7s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dream-mist">
+    <div class="mist m1"></div>
+    <div class="mist m2"></div>
+    <div class="mist m3"></div>
+</div>
+
+<div class="message-sanctuary">
+    <div class="rose-image">
+        <img class="rose-img" src="https://www.gardeningexpress.co.uk/media/catalog/product/cache/7b4309904d7d86d6db5a4996af690b81/p/i/pimpernel-hydrangea-large-1.jpg" alt="White Rose" loading="lazy">
+    </div>
+    
+    <div class="flower-title">
+        <i class="fas fa-rose"></i> Thank You <i class="fas fa-feather-alt"></i>
+    </div>
+    
+    <div class="divider">
+        <span class="petal-icon">✧</span> I love you so much <span class="petal-icon">✧</span>
+    </div>
+
+    <div class="message-content">
+        <div class="message-text">
+            <i class="fas fa-star-of-life"></i> My love,<br><br> 
+            I’m so, so thankful that I have you in my life. <br>
+            You mean everything to me, more than I can ever fully explain. <br>
+            Thank you for always choosing me, even when things get hard, <br>
+            kahit na alam mong hindi madali lalo na’t kailangan nating itago, <br>
+            and that means so much to me.<br><br>
+
+            Ikaw ang dahilan kung bakit gusto kong maging better every day. 
+            Dahil sayo, mas ginagalingan ko, mas nagsisikap ako, 
+            kasi gusto kong maging someone na mabibigay lahat ng gusto, 
+            kailangan at kahit hindi mo kailangan. 
+            
+            Thank you for your endless understanding,<br>
+            for your patience, and for the time you give me kahit na <br>
+            super pagod ka na dahil busy ka. I want you to know na sobra <br>
+            sobra sobra kitang na aappreciate and yung lahat ng ginagawa mo. <br>
+            Oa na kung oa pero, sobrang swerte kong tao, kasi I have you. <br><br>
+
+            I’m truly, deeply grateful for you. <br>
+            I will always cherish you, love you, respect you, <br>
+            choose you, and treat you right, no matter what. <br>
+            Maraming maraming salamat, mahal ko. <br>
+            Mahal na mahal kita sobra sobra palagi. 
+        </div>
+        <div class="signature">
+            ✦ From Your Forever Baby ✦
+        </div>
+    </div>
+
+    <div class="divider">
+        <span>❀</span> <i class="fas fa-moon"></i> always & forever <i class="fas fa-moon"></i> <span>❀</span>
+    </div>
+
+    <button class="back-btn" id="backToHomeBtn">
+        <i class="fas fa-arrow-left"></i> Back to home
+    </button>
+    
+    <div class="page-footer">
+        <span><i class="fas fa-feather"></i> Kreizong | El & Em</span>
+    </div>
+</div>
+
+<script>
+    // ==============================================
+    // WHITE ROSE MESSAGE PAGE
+    // Contains a heartfelt love letter / message
+    // Back button returns to the main flowers page (index.html)
+    // ==============================================
+
+    const backBtn = document.getElementById('backToHomeBtn');
+    
+    function goBackToHome() {
+        // graceful fade-out transition
+        document.body.style.transition = 'opacity 0.5s ease, transform 0.4s ease';
+        document.body.style.opacity = '0';
+        document.body.style.transform = 'scale(0.97)';
+        
+        const container = document.querySelector('.message-sanctuary');
+        if (container) {
+            container.style.transition = 'transform 0.3s';
+            container.style.transform = 'scale(0.98)';
+        }
+        
+        setTimeout(() => {
+            window.location.href = 'home.html';
+        }, 430);
+    }
+    
+    if (backBtn) {
+        backBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            backBtn.style.transform = 'scale(0.96)';
+            setTimeout(() => {
+                goBackToHome();
+            }, 60);
+        });
+        
+        backBtn.addEventListener('mouseleave', () => {
+            backBtn.style.transform = '';
+        });
+    }
+    
+    // floating particles for dreamy atmosphere
+    function createDreamParticles() {
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = Math.random() * 4 + 1 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = `radial-gradient(circle, rgba(220, 180, 255, ${Math.random() * 0.5 + 0.2}), rgba(150, 100, 220, 0))`;
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animation = `floatPetal ${Math.random() * 14 + 8}s infinite alternate ease-in-out`;
+            particle.style.zIndex = '1';
+            particle.style.opacity = '0.4';
+            particle.style.filter = 'blur(2px)';
+            document.body.appendChild(particle);
+        }
+        if (!document.querySelector('#petalFloatStyle')) {
+            const style = document.createElement('style');
+            style.id = 'petalFloatStyle';
+            style.textContent = `
+                @keyframes floatPetal {
+                    0% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+                    100% { transform: translateY(-60px) translateX(20px); opacity: 0.7; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    createDreamParticles();
+    
+    console.log('Back button returns to home.html');
+</script>
+</body>
+</html>

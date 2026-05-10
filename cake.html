@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Happy Anniversary, My Love | Anniversary Cake with Music</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+  <style>
+    /* ========== PURPLE & BLUE ANNIVERSARY THEME ========== */
+    body {
+      background: linear-gradient(145deg, #1a0b2e 0%, #0e0a2a 50%, #03011a 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', 'Quicksand', 'Poppins', sans-serif;
+      position: relative;
+      overflow-x: hidden;
+      padding: 1rem;
+    }
+
+    /* floating ethereal orbs */
+    .bg-aura {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      top: 0;
+      left: 0;
+    }
+    .aura {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180, 120, 255, 0.2), transparent);
+      filter: blur(80px);
+      animation: floatAura 18s infinite alternate;
+    }
+    .a1 { width: 60vw; height: 60vw; top: -20%; left: -20%; }
+    .a2 { width: 50vw; height: 50vw; bottom: -15%; right: -15%; background: radial-gradient(circle, rgba(255, 140, 200, 0.2), transparent); animation-duration: 24s; }
+    .a3 { width: 40vw; height: 40vw; top: 40%; left: 30%; background: radial-gradient(circle, rgba(100, 100, 255, 0.15), transparent); animation-duration: 20s; }
+    @keyframes floatAura {
+      0% { transform: translate(0,0) scale(1); opacity: 0.4; }
+      100% { transform: translate(4%, 6%) scale(1.1); opacity: 0.7; }
+    }
+
+    /* PERMANENT ANNIVERSARY MESSAGE ABOVE THE CAKE */
+    .anniversary-header {
+      text-align: center;
+      margin-bottom: 15px;
+      z-index: 10;
+      position: relative;
+    }
+    .anniversary-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffe6f0, #ffb8e8, #ff8ad4, #d9a6ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 10px rgba(255, 120, 200, 0.3);
+      letter-spacing: 1px;
+    }
+    .anniversary-header .sub-heart {
+      font-size: 1rem;
+      color: #ffb8e8;
+      margin-top: 5px;
+      letter-spacing: 2px;
+    }
+    .heart-pulse {
+      display: inline-block;
+      animation: heartbeat 1s ease-in-out infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* AUDIO PLAYER (audio tag) */
+    .audio-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 10px auto;
+      z-index: 10;
+      position: relative;
+      background: rgba(70, 45, 120, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      border-radius: 50px;
+      border: 1px solid rgba(200, 150, 255, 0.6);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    }
+    .audio-container audio {
+      width: 100%;
+      background: rgba(80, 50, 130, 0.5);
+      border-radius: 30px;
+      height: 40px;
+    }
+    .audio-container audio::-webkit-media-controls-panel {
+      background: rgba(100, 70, 160, 0.8);
+    }
+    .music-label {
+      display: block;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #ffd6f0;
+      font-weight: 500;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    /* candle count display */
+    .candle-count-display {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      font-family: 'Quicksand', 'Arial', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f0e2ff;
+      background: rgba(70, 45, 120, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 8px 20px;
+      border-radius: 50px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid rgba(200, 150, 255, 0.6);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+      position: relative;
+    }
+    .candle-count-display span {
+      font-weight: bold;
+      color: #ffb8e8;
+      font-size: 1.3rem;
+      margin-left: 8px;
+    }
+
+    /* cake positioning */
+    .cake {
+      position: relative;
+      width: 250px;
+      height: 200px;
+      margin: 10px auto;
+      z-index: 10;
+      cursor: crosshair;
+    }
+
+    .plate {
+      width: 270px;
+      height: 110px;
+      position: absolute;
+      bottom: -10px;
+      left: -10px;
+      background-color: #ccc;
+      border-radius: 50%;
+      box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3, 0 5px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .cake > * {
+      position: absolute;
+    }
+
+    .layer {
+      position: absolute;
+      display: block;
+      width: 250px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #553c13;
+      box-shadow: 0 2px 0px #6a4b18, 0 4px 0px #33240b, 0 6px 0px #32230b, 0 8px 0px #31230b, 0 10px 0px #30220b, 0 12px 0px #2f220b, 0 14px 0px #2f210a, 0 16px 0px #2e200a, 0 18px 0px #2d200a, 0 20px 0px #2c1f0a, 0 22px 0px #2b1f0a, 0 24px 0px #2a1e09, 0 26px 0px #2a1d09, 0 28px 0px #291d09, 0 30px 0px #281c09;
+    }
+
+    .layer-top { top: 0px; }
+    .layer-middle { top: 33px; }
+    .layer-bottom { top: 66px; }
+
+    .icing {
+      top: 2px;
+      left: 5px;
+      background-color: #f0e4d0;
+      width: 240px;
+      height: 90px;
+      border-radius: 50%;
+    }
+    .icing:before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      right: 5px;
+      bottom: 6px;
+      left: 5px;
+      background-color: #f4ebdc;
+      box-shadow: 0 0 4px #f6efe3, 0 0 4px #f6efe3, 0 0 4px #f6efe3;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .drip {
+      display: block;
+      width: 50px;
+      height: 60px;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+      background-color: #f0e4d0;
+    }
+
+    .drip1 {
+      top: 53px;
+      left: 5px;
+      transform: skewY(15deg);
+      height: 48px;
+      width: 40px;
+    }
+    .drip2 {
+      top: 69px;
+      left: 181px;
+      transform: skewY(-15deg);
+    }
+    .drip3 {
+      top: 54px;
+      left: 90px;
+      width: 80px;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+
+    /* candle styling */
+    .candle {
+      background-color: #7B020B;
+      width: 12px;
+      height: 35px;
+      border-radius: 6px/3px;
+      top: -20px;
+      left: 50%;
+      margin-left: -8px;
+      z-index: 10;
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    .candle:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 12px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #ad030f;
+    }
+    .candle.out .flame {
+      display: none;
+    }
+    .candle:hover {
+      transform: scale(1.05);
+    }
+
+    .flame {
+      position: absolute;
+      background-color: orange;
+      width: 10px;
+      height: 25px;
+      border-radius: 8px 8px 8px 8px/20px 20px 8px 8px;
+      top: -34px;
+      left: 50%;
+      margin-left: -7.5px;
+      z-index: 10;
+      box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
+      transform-origin: 50% 90%;
+      animation: flicker 1s ease-in-out alternate infinite;
+      pointer-events: none;
+    }
+
+    @keyframes flicker {
+      0% { transform: skewX(5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.2), 0 0 20px rgba(255, 165, 0, 0.2), 0 0 60px rgba(255, 165, 0, 0.2), 0 0 80px rgba(255, 165, 0, 0.2); }
+      25% { transform: skewX(-5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5); }
+      50% { transform: skewX(10deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.3), 0 0 20px rgba(255, 165, 0, 0.3), 0 0 60px rgba(255, 165, 0, 0.3), 0 0 80px rgba(255, 165, 0, 0.3); }
+      75% { transform: skewX(-10deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 165, 0, 0.4), 0 0 80px rgba(255, 165, 0, 0.4); }
+      100% { transform: skewX(5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5); }
+    }
+
+    /* control buttons */
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 15px auto;
+      flex-wrap: wrap;
+      z-index: 10;
+      position: relative;
+    }
+    .btn {
+      background: rgba(80, 50, 130, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(200, 150, 255, 0.6);
+      padding: 8px 24px;
+      border-radius: 3rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #f0e2ff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn:hover {
+      background: rgba(110, 70, 180, 0.9);
+      transform: translateY(-3px);
+      gap: 12px;
+      border-color: #ffc4f0;
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .btn-reset {
+      background: linear-gradient(95deg, #6d5acf, #9a7dff);
+    }
+    .btn-back {
+      background: rgba(60, 40, 110, 0.8);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.65rem;
+      color: #998ac7;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      z-index: 10;
+      position: relative;
+    }
+
+    /* blow effect animation */
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(1.5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-aura">
+  <div class="aura a1"></div>
+  <div class="aura a2"></div>
+  <div class="aura a3"></div>
+</div>
+
+<!-- PERMANENT ANNIVERSARY MESSAGE ABOVE THE CAKE -->
+<div class="anniversary-header">
+  <h1>🎂 Happy Anniversary, My Love! 🎂</h1>
+  <div class="sub-heart">
+    <span class="heart-pulse">❤️</span> I love you so much, My Wifey! <span class="heart-pulse">❤️</span>
+  </div>
+</div>
+
+<!-- AUDIO TAG - the audio player you asked for -->
+<div class="audio-container">
+  <div class="music-label">🎵 Listen bae and open the lyrics sa ibang tab 🎵</div>
+  <audio id="bgMusic" controls loop autoplay>
+    <source src="Wilbert Ross - Dulo Ng Pahina (Official Lyric Video).mp3" type="audio/mpeg">
+    Your browser does not support the audio element. Please use a different browser or download the audio file.
+  </audio>
+</div>
+
+<div class="candle-count-display">
+  Candles on the Cake: <span id="candleCount">0</span>
+</div>
+
+<div class="cake" id="cake">
+  <div class="plate"></div>
+  <div class="layer layer-bottom"></div>
+  <div class="layer layer-middle"></div>
+  <div class="layer layer-top"></div>
+  <div class="icing"></div>
+  <div class="drip drip1"></div>
+  <div class="drip drip2"></div>
+  <div class="drip drip3"></div>
+</div>
+
+<div class="button-group">
+  <button class="btn btn-reset" id="resetBtn">Remove the Candles</button>
+  <button class="btn btn-back" id="backBtn">🌸 Back to Home</button>
+</div>
+
+<footer>Kreizong | El & Em</footer>
+
+<script>
+  // ===================================================
+  // Anniversary Cake with Candles & Audio Tag
+  // - "Happy Anniversary, My Love!" displayed permanently above the cake
+  // - Audio tag with controls, loop, autoplay
+  // - Click on cake to add candles
+  // - Blow into microphone OR click on candle to blow it out
+  // - Reset button removes all candles
+  // ===================================================
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const cake = document.getElementById("cake");
+    const candleCountDisplay = document.getElementById("candleCount");
+    const bgMusic = document.getElementById("bgMusic");
+    let candles = [];
+    let audioContext;
+    let analyser;
+    let microphone;
+    let blowInterval;
+
+    // AUTO-PLAY MUSIC with user interaction fallback
+    function attemptAutoPlay() {
+      if (bgMusic) {
+        bgMusic.play().catch(e => {
+          console.log("Autoplay prevented. Music will start on first click/tap anywhere.");
+        });
+      }
+    }
+    
+    attemptAutoPlay();
+    
+    function playMusicOnInteraction() {
+      if (bgMusic && bgMusic.paused) {
+        bgMusic.play().catch(e => console.log("Could not play music"));
+      }
+    }
+    document.addEventListener('click', playMusicOnInteraction);
+    document.addEventListener('touchstart', playMusicOnInteraction);
+
+    // Update candle count display
+    function updateCandleCount() {
+      const activeCandles = candles.filter(candle => !candle.classList.contains("out")).length;
+      candleCountDisplay.textContent = activeCandles;
+    }
+
+    // Add a new candle at specified coordinates (relative to cake)
+    function addCandle(left, top) {
+      const candle = document.createElement("div");
+      candle.className = "candle";
+      candle.style.left = left + "px";
+      candle.style.top = top + "px";
+      
+      const flame = document.createElement("div");
+      flame.className = "flame";
+      candle.appendChild(flame);
+      
+      // Add click event to blow out individual candle
+      candle.addEventListener("click", function(e) {
+        e.stopPropagation();
+        blowOutSingleCandle(candle);
+      });
+      
+      cake.appendChild(candle);
+      candles.push(candle);
+      updateCandleCount();
+    }
+
+    // Blow out a single candle
+    function blowOutSingleCandle(candle) {
+      if (!candle.classList.contains("out")) {
+        candle.classList.add("out");
+        updateCandleCount();
+        candle.style.transform = 'scale(0.95)';
+        setTimeout(() => { candle.style.transform = ''; }, 100);
+      }
+    }
+
+    // Blow out candles based on microphone detection
+    function blowOutCandlesFromMic() {
+      if (!analyser) return;
+      
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      analyser.getByteFrequencyData(dataArray);
+      
+      let sum = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        sum += dataArray[i];
+      }
+      let average = sum / bufferLength;
+      
+      const BLOW_THRESHOLD = 45;
+      if (average > BLOW_THRESHOLD) {
+        let blownAny = false;
+        candles.forEach(candle => {
+          if (!candle.classList.contains("out") && Math.random() > 0.4) {
+            candle.classList.add("out");
+            blownAny = true;
+          }
+        });
+        if (blownAny) {
+          updateCandleCount();
+          const cakeRect = cake.getBoundingClientRect();
+          const blowEffect = document.createElement('div');
+          blowEffect.style.position = 'fixed';
+          blowEffect.style.left = (cakeRect.left + cakeRect.width/2) + 'px';
+          blowEffect.style.top = (cakeRect.top + cakeRect.height/2) + 'px';
+          blowEffect.innerHTML = '💨';
+          blowEffect.style.fontSize = '40px';
+          blowEffect.style.pointerEvents = 'none';
+          blowEffect.style.zIndex = '1000';
+          blowEffect.style.opacity = '0.8';
+          blowEffect.style.animation = 'floatUp 0.8s ease-out forwards';
+          document.body.appendChild(blowEffect);
+          setTimeout(() => blowEffect.remove(), 800);
+        }
+      }
+    }
+
+    // Reset all candles
+    function resetAllCandles() {
+      candles.forEach(candle => {
+        if (candle && candle.parentNode) candle.remove();
+      });
+      candles = [];
+      updateCandleCount();
+    }
+
+    // Click on cake to add candle
+    cake.addEventListener("click", function(event) {
+      const rect = cake.getBoundingClientRect();
+      let left = event.clientX - rect.left;
+      let top = event.clientY - rect.top;
+      
+      left = Math.min(Math.max(left, 10), rect.width - 20);
+      top = Math.min(Math.max(top, -30), rect.height - 40);
+      addCandle(left, top);
+    });
+
+    // Initialize microphone for blow detection
+    function initMicrophone() {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+          .then(function(stream) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            microphone = audioContext.createMediaStreamSource(stream);
+            microphone.connect(analyser);
+            analyser.fftSize = 256;
+            
+            const resumeAudio = () => {
+              if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+              }
+              document.removeEventListener('click', resumeAudio);
+              document.removeEventListener('touchstart', resumeAudio);
+            };
+            document.addEventListener('click', resumeAudio);
+            document.addEventListener('touchstart', resumeAudio);
+            
+            blowInterval = setInterval(blowOutCandlesFromMic, 200);
+            console.log("🎤 Microphone ready! Blow into your mic to extinguish candles.");
+          })
+          .catch(function(err) {
+            console.log("Microphone access denied: " + err);
+          });
+      } else {
+        console.log("getUserMedia not supported on this browser.");
+      }
+    }
+
+    function cleanupMicrophone() {
+      if (blowInterval) clearInterval(blowInterval);
+      if (microphone) {
+        try { microphone.disconnect(); } catch(e) {}
+      }
+      if (analyser) {
+        try { analyser.disconnect(); } catch(e) {}
+      }
+      if (audioContext) {
+        audioContext.close().catch(e => console.log);
+      }
+    }
+
+    const resetBtn = document.getElementById("resetBtn");
+    resetBtn.addEventListener("click", function() {
+      resetAllCandles();
+    });
+
+    const backBtn = document.getElementById("backBtn");
+    backBtn.addEventListener("click", function() {
+      cleanupMicrophone();
+      document.body.style.transition = 'opacity 0.4s ease';
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 350);
+    });
+
+    let micStarted = false;
+    function startMicOnInteraction() {
+      if (!micStarted) {
+        micStarted = true;
+        initMicrophone();
+        document.removeEventListener('click', startMicOnInteraction);
+        document.removeEventListener('touchstart', startMicOnInteraction);
+      }
+    }
+    document.addEventListener('click', startMicOnInteraction);
+    document.addEventListener('touchstart', startMicOnInteraction);
+
+    updateCandleCount();
+    
+    console.log("🎂 Anniversary Cake Ready! Audio tag with controls is visible above the cake.");
+    console.log("🎵 Music file expected: 'Wilbert Ross - Dulo Ng Pahina (Official Lyric Video).mp3'");
+    console.log("💡 Tip: Replace the audio src with your own MP3 file if needed.");
+  });
+</script>
+
+</body>
+</html>s

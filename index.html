@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>HeartLock Portal | Three Seals</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* clean aesthetic, no accidental highlighting */
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 30% 20%, #0c0a2a, #02000f);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        /* ambient abstract glow (decorative only) */
+        .bg-aura {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .aura {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(160, 100, 255, 0.2), transparent 70%);
+            filter: blur(65px);
+            animation: floatGlow 18s infinite alternate;
+        }
+        .aura1 { width: 50vw; height: 50vw; top: -15%; left: -20%; background: radial-gradient(circle, rgba(200, 110, 220, 0.2), transparent); }
+        .aura2 { width: 55vw; height: 55vw; bottom: -20%; right: -15%; background: radial-gradient(circle, rgba(100, 80, 230, 0.2), transparent); animation-duration: 24s; }
+        .aura3 { width: 40vw; height: 40vw; top: 45%; left: 30%; background: radial-gradient(circle, rgba(140, 80, 200, 0.15), transparent); animation-duration: 20s; }
+        @keyframes floatGlow {
+            0% { transform: translate(0,0) scale(1); opacity: 0.4; }
+            100% { transform: translate(3%, 5%) scale(1.12); opacity: 0.7; }
+        }
+
+        /* MAIN CENTERED CARD */
+        .lock-chamber {
+            background: rgba(12, 8, 32, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 3rem;
+            border: 1px solid rgba(180, 120, 255, 0.45);
+            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(220, 160, 255, 0.15);
+            padding: 2rem 1.8rem 2.5rem;
+            width: 100%;
+            max-width: 760px;
+            transition: 0.3s;
+            z-index: 10;
+            margin: 0 auto;
+        }
+
+        /* header - no clues, just vibe */
+        .chamber-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .chamber-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f0d5ff, #c8a6ff, #b07eff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chamber-header p {
+            color: #b7a0e6;
+            font-size: 0.75rem;
+            margin-top: 0.6rem;
+            opacity: 0.6;
+            font-weight: 400;
+        }
+
+        /* three heart locks - centered grid */
+        .hearts-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 1.8rem 0 1.5rem;
+        }
+
+        /* individual lock card */
+        .heart-lock {
+            background: rgba(22, 15, 48, 0.7);
+            backdrop-filter: blur(6px);
+            border-radius: 2rem;
+            padding: 1.2rem 1rem 1.5rem;
+            width: 150px;
+            text-align: center;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(210, 130, 255, 0.5);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.4);
+        }
+        .heart-lock:hover {
+            transform: translateY(-4px);
+            border-color: #ff9fdd;
+            box-shadow: 0 18px 28px -8px rgba(160, 80, 220, 0.4);
+        }
+
+        /* heart icon + number badge */
+        .heart-icon-area {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .heart-base {
+            font-size: 3.8rem;
+            color: #ff6eb4;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+            transition: 0.2s;
+        }
+        .lock-digit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -52%);
+            font-size: 1.35rem;
+            font-weight: 800;
+            font-family: 'Courier New', monospace;
+            color: #fff4e8;
+            text-shadow: 0 1px 4px #9b2f62;
+            background: rgba(0, 0, 0, 0.35);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            backdrop-filter: blur(2px);
+            letter-spacing: 1px;
+        }
+
+        .lock-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            background: rgba(190, 120, 250, 0.2);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            color: #e2c9ff;
+            margin: 6px 0 12px;
+            letter-spacing: 1px;
+        }
+
+        /* number input - only numbers, no clues */
+        .combo-field {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #bf8eff;
+            border-radius: 2rem;
+            padding: 8px 12px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: bold;
+            font-family: monospace;
+            color: #ffeef7;
+            outline: none;
+            transition: 0.2s;
+            letter-spacing: 2px;
+        }
+        .combo-field:focus {
+            border-color: #ff96d2;
+            background: #201b44;
+            box-shadow: 0 0 0 2px rgba(250, 120, 210, 0.4);
+        }
+        .combo-field:disabled {
+            opacity: 0.8;
+            color: #dbbdff;
+            border-color: #85d4a0;
+        }
+
+        /* tiny status indicator (minimal) */
+        .status-badge {
+            font-size: 0.65rem;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: #ff7b9c;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        .status-dot.unlocked {
+            background-color: #8affc2;
+            box-shadow: 0 0 6px #a0ffcc;
+        }
+        .status-text {
+            color: #d5c2f0;
+        }
+
+        /* hidden login realm only appears after all locks open (redirect trigger) */
+        .final-action-area {
+            margin-top: 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        .gate-message {
+            background: rgba(30, 15, 60, 0.6);
+            border-radius: 3rem;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #e4cdff;
+            border-left: 3px solid #ff7bc2;
+            backdrop-filter: blur(5px);
+            display: inline-block;
+            width: auto;
+            margin: 0 auto;
+        }
+
+        /* redirect button style (clean) */
+        .enter-btn {
+            background: linear-gradient(105deg, #b267ff, #ff7bcb);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 2.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 8px 20px rgba(140, 60, 200, 0.5);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .enter-btn:disabled {
+            opacity: 0.5;
+            filter: grayscale(0.2);
+            cursor: not-allowed;
+            transform: none;
+        }
+        .enter-btn:not(:disabled):hover {
+            transform: scale(1.02);
+            background: linear-gradient(105deg, #c27dff, #ff92d4);
+            box-shadow: 0 12px 24px rgba(170, 90, 230, 0.6);
+        }
+
+        /* general utility */
+        footer {
+            font-size: 0.6rem;
+            text-align: center;
+            margin-top: 1.8rem;
+            color: #7a65b0;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 560px) {
+            .hearts-grid { gap: 1rem; }
+            .heart-lock { width: 130px; padding: 0.9rem; }
+            .lock-chamber { padding: 1.5rem; }
+            .heart-base { font-size: 3rem; }
+            .lock-digit { font-size: 1.1rem; width: 32px; height: 32px;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-aura">
+    <div class="aura aura1"></div>
+    <div class="aura aura2"></div>
+    <div class="aura aura3"></div>
+</div>
+
+<div class="lock-chamber">
+    <div class="chamber-header">
+        <h1><i class="fas fa-heart"></i> When is our Anniversary? <i class="fas fa-heart"></i></h1>
+        <p>✦ three sacred hearts guard the threshold ✦</p>
+    </div>
+
+    <!-- three heart locks: combination 05, 11, 22 (no visible hints anywhere) -->
+    <div class="hearts-grid" id="heartsGrid">
+        <!-- Lock 0 - code 05 -->
+        <div class="heart-lock" data-index="0">
+            <div class="heart-icon-area">
+                <i class="fas fa-heart heart-base"></i>
+                <div class="lock-digit" id="lockDigit0">MM</div>
+            </div>
+            <div class="lock-label">first seal</div>
+            <input type="text" class="combo-field" id="combo0" placeholder="··" maxlength="2" inputmode="numeric" autocomplete="off">
+            <div class="status-badge" id="status0">
+                <span class="status-dot"></span>
+                <span class="status-text">locked</span>
+            </div>
+        </div>
+        <!-- Lock 1 - code 11 -->
+        <div class="heart-lock" data-index="1">
+            <div class="heart-icon-area">
+                <i class="fas fa-heart heart-base"></i>
+                <div class="lock-digit" id="lockDigit1">DD</div>
+            </div>
+            <div class="lock-label">second seal</div>
+            <input type="text" class="combo-field" id="combo1" placeholder="··" maxlength="2" inputmode="numeric" autocomplete="off">
+            <div class="status-badge" id="status1">
+                <span class="status-dot"></span>
+                <span class="status-text">locked</span>
+            </div>
+        </div>
+        <!-- Lock 2 - code 22 -->
+        <div class="heart-lock" data-index="2">
+            <div class="heart-icon-area">
+                <i class="fas fa-heart heart-base"></i>
+                <div class="lock-digit" id="lockDigit2">YY</div>
+            </div>
+            <div class="lock-label">third seal</div>
+            <input type="text" class="combo-field" id="combo2" placeholder="··" maxlength="2" inputmode="numeric" autocomplete="off">
+            <div class="status-badge" id="status2">
+                <span class="status-dot"></span>
+                <span class="status-text">locked</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- area for final action: appears only when all hearts unlock, with redirect trigger -->
+    <div class="final-action-area" id="finalActionArea" style="display: none;">
+        <div class="gate-message">
+            <i class="fas fa-unlock-alt"></i> all seals broken · Are you excited?
+        </div>
+        <button class="enter-btn" id="redirectBtn">
+            <i class="fas fa-arrow-right-to-bracket"></i> Yes!
+        </button>
+    </div>
+    <footer>⚘ silent hearts speak in numbers ⚘</footer>
+</div>
+
+<script>
+    // ----------------------------
+    // THREE HEART LOCKS: combination "05", "11", "22"
+    // No hints, no labels visible. Only numbers allowed.
+    // When all three locks are unlocked correctly -> show the enter button
+    // Clicking the button redirects to "home.html"
+    // Also with perfect centering, no clues, clean UX.
+    // ----------------------------
+    
+    const correctCodes = ["05", "11", "22"];
+    let locksState = [false, false, false];   // unlocked status
+    
+    // DOM elements
+    const comboInputs = [
+        document.getElementById("combo0"),
+        document.getElementById("combo1"),
+        document.getElementById("combo2")
+    ];
+    const statusDots = [
+        document.querySelector("#status0 .status-dot"),
+        document.querySelector("#status1 .status-dot"),
+        document.querySelector("#status2 .status-dot")
+    ];
+    const statusTexts = [
+        document.querySelector("#status0 .status-text"),
+        document.querySelector("#status1 .status-text"),
+        document.querySelector("#status2 .status-text")
+    ];
+    const lockDigits = [
+        document.getElementById("lockDigit0"),
+        document.getElementById("lockDigit1"),
+        document.getElementById("lockDigit2")
+    ];
+    const heartIcons = document.querySelectorAll(".heart-base");
+    const finalActionDiv = document.getElementById("finalActionArea");
+    const redirectButton = document.getElementById("redirectBtn");
+    
+    // Helper: update UI for a specific lock when unlocked
+    function setLockUnlockedUI(index, isUnlocked) {
+        if (isUnlocked) {
+            statusDots[index].classList.add("unlocked");
+            statusTexts[index].innerText = "unlocked";
+            // style changes
+            comboInputs[index].disabled = true;
+            comboInputs[index].style.borderColor = "#acffcf";
+            comboInputs[index].style.background = "rgba(40, 35, 70, 0.8)";
+            lockDigits[index].style.textShadow = "0 0 6px #ffc0e8";
+            lockDigits[index].style.color = "#fff9ea";
+            heartIcons[index].style.color = "#ff94cc";
+            heartIcons[index].style.filter = "drop-shadow(0 0 6px #ff69b4)";
+            // add subtle pulse to indicate unlocked
+            const parentCard = document.querySelectorAll(".heart-lock")[index];
+            parentCard.style.transform = "scale(1.01)";
+            setTimeout(() => { if(parentCard) parentCard.style.transform = ""; }, 200);
+        } else {
+            statusDots[index].classList.remove("unlocked");
+            statusTexts[index].innerText = "locked";
+            comboInputs[index].disabled = false;
+            comboInputs[index].style.borderColor = "#bf8eff";
+            comboInputs[index].style.background = "rgba(0, 0, 0, 0.5)";
+            lockDigits[index].style.textShadow = "0 1px 4px #9b2f62";
+            heartIcons[index].style.color = "#ff6eb4";
+            heartIcons[index].style.filter = "drop-shadow(0 5px 10px rgba(0,0,0,0.3))";
+        }
+    }
+    
+    // Verify a specific lock based on entered value
+    function verifyLock(lockIndex, enteredValue) {
+        const correct = correctCodes[lockIndex];
+        let cleanVal = enteredValue.trim();
+        // only numeric, already enforced by input filter, but safe
+        if (cleanVal === correct) {
+            if (!locksState[lockIndex]) {
+                locksState[lockIndex] = true;
+                setLockUnlockedUI(lockIndex, true);
+                // small haptic / visual feedback (no textual clue)
+                triggerMiniSuccessEffect(lockIndex);
+                // after any change, check if all locks open
+                checkAllLocksAndUpdateFinalArea();
+            }
+        } else {
+            // if already unlocked but somehow value changed? prevent: but we disable input after unlock, so safe.
+            if (!locksState[lockIndex] && cleanVal.length === 2) {
+                // wrong code: gentle refusal feedback (shake but no hint of correct number)
+                shakeLockCard(lockIndex);
+                // clear field after a short blink if wrong? no, but keep typed, but we can reset after a moment? better to let user retype
+                // but not to frustrate: just shake and reset field value? To avoid confusion, we reset field to empty after wrong full code?
+                // Design: better reset the field to empty after wrong 2-digit entry, so user can retype without backspace
+                if (cleanVal.length === 2 && cleanVal !== correct) {
+                    comboInputs[lockIndex].value = "";
+                }
+            }
+        }
+        // if lock is unlocked, force display correct code on input field
+        if (locksState[lockIndex]) {
+            comboInputs[lockIndex].value = correct;
+        }
+    }
+    
+    // shake animation for wrong attempt (no text hints)
+    function shakeLockCard(index) {
+        const card = document.querySelectorAll(".heart-lock")[index];
+        if (!card) return;
+        card.style.animation = "shakeEffect 0.25s ease-in-out 0s 1";
+        setTimeout(() => { card.style.animation = ""; }, 260);
+        // also briefly flash red border
+        const originalBorder = card.style.border;
+        card.style.border = "1px solid #ff7b9c";
+        setTimeout(() => { card.style.border = originalBorder || "1px solid rgba(210, 130, 255, 0.5)"; }, 250);
+    }
+    
+    function triggerMiniSuccessEffect(index) {
+        const card = document.querySelectorAll(".heart-lock")[index];
+        if (card) {
+            card.style.transform = "scale(1.02)";
+            setTimeout(() => { if(card) card.style.transform = ""; }, 200);
+        }
+    }
+    
+    // after each lock verification, check overall progress
+    function checkAllLocksAndUpdateFinalArea() {
+        const allUnlocked = locksState[0] && locksState[1] && locksState[2];
+        if (allUnlocked) {
+            // reveal the final action area (enter button)
+            finalActionDiv.style.display = "block";
+            // add subtle entrance animation
+            finalActionDiv.style.animation = "fadeSlideUp 0.5s ease forwards";
+        } else {
+            finalActionDiv.style.display = "none";
+        }
+    }
+    
+    // REDIRECT FUNCTION: when button clicked, go to home.html
+    function initRedirect() {
+        if (redirectButton) {
+            redirectButton.addEventListener("click", (e) => {
+                e.preventDefault();
+                // double-check all locks are unlocked before redirect (just in case)
+                if (locksState[0] && locksState[1] && locksState[2]) {
+                    // add a majestic fade-out effect before redirect
+                    document.body.style.transition = "opacity 0.5s ease";
+                    document.body.style.opacity = "0";
+                    setTimeout(() => {
+                        window.location.href = "home.html";
+                    }, 400);
+                } else {
+                    // fallback: if somehow button enabled without all unlocked, hide.
+                    finalActionDiv.style.display = "none";
+                }
+            });
+        }
+    }
+    
+    // Input filtering: only numbers, max 2 digits, auto verify on full 2 digits
+    function setupInputListeners() {
+        for (let i = 0; i < comboInputs.length; i++) {
+            const input = comboInputs[i];
+            const idx = i;
+            input.addEventListener("input", function(e) {
+                // restrict to numbers only
+                let raw = this.value.replace(/[^0-9]/g, '');
+                if (raw.length > 2) raw = raw.slice(0,2);
+                this.value = raw;
+                // if we have exactly two digits, trigger verification
+                if (raw.length === 2) {
+                    verifyLock(idx, raw);
+                } else if (raw.length < 2 && locksState[idx]) {
+                    // already unlocked - keep correct value displayed
+                    if (locksState[idx]) this.value = correctCodes[idx];
+                }
+            });
+            // on blur, if lock unlocked, ensure displayed value matches code
+            input.addEventListener("blur", function() {
+                if (locksState[idx]) {
+                    this.value = correctCodes[idx];
+                } else {
+                    // if not unlocked and field has incomplete entry, maybe clear it to keep clean? 
+                    let val = this.value;
+                    if (val.length === 1) {
+                        // single digit: no verification yet, keep it, but user can continue
+                    }
+                }
+            });
+        }
+    }
+    
+    // initial state: all locks locked, inputs empty, finalArea hidden
+    function initLocksFresh() {
+        for (let i = 0; i < 3; i++) {
+            locksState[i] = false;
+            setLockUnlockedUI(i, false);
+            comboInputs[i].value = "";
+            comboInputs[i].disabled = false;
+            // ensure lock digits show correct expected numbers (just for display but no textual hint about code meaning)
+            // The digits show the static numbers (05, 11, 22) as part of lock design, that's the embedded combination.
+            // but no extra clue like "enter 05" — the digits are just decorative part of the lock.
+            // that's fine because the user must figure out these numbers (05,11,22) are the keys.
+            // No additional explanatory text.
+        }
+        finalActionDiv.style.display = "none";
+    }
+    
+    // add shake keyframes dynamically
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `
+        @keyframes shakeEffect {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .combo-field::placeholder {
+            color: #aa9ad6;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+    `;
+    document.head.appendChild(styleSheet);
+    
+    // initialize everything
+    function init() {
+        initLocksFresh();
+        setupInputListeners();
+        initRedirect();
+    }
+    
+    init();
+    
+    // Additional safeguard: prevent copy-paste of wrong characters and ensure no clues appear in console
+    // Also make sure that any attempt to bypass is none, but pure heart-lock experience.
+    // For perfect centering, this layout uses flex + margin auto, fully centered.
+    
+    // Bonus: enable subtle background shimmer that doesn't reveal anything
+    // No error messages that give hint about correct combo, just lock shake.
+    // All combination knowledge is embedded within the lock digits (05,11,22) visually.
+    // user needs to type each corresponding number into each lock.
+    // No extra "hint" text or description.
+    
+    // Also handle if user tries to open all locks: they see "enter sanctuary" button
+    // Redirects to home.html (you can create a dummy home.html or it will redirect accordingly)
+    console.log("HeartLock: Enter 05, 11, 22 in the three locks to unlock the gateway.");
+</script>
+</body>
+</html>

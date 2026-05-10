@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Moonlit Petals | White Rose · Hydrangea · Lavender</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 30%, #1a0b2e 0%, #0e0a2a 50%, #03011a 100%);
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* animated purple/blue orbs */
+        .ethereal-mist {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .mist-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(138, 80, 230, 0.25), rgba(70, 50, 180, 0));
+            filter: blur(70px);
+            animation: floatMist 20s infinite alternate ease-in-out;
+        }
+        .orb1 { width: 55vw; height: 55vw; top: -15%; left: -20%; background: radial-gradient(circle, rgba(150, 90, 250, 0.3), rgba(100, 50, 200, 0)); }
+        .orb2 { width: 50vw; height: 50vw; bottom: -20%; right: -15%; background: radial-gradient(circle, rgba(90, 70, 220, 0.35), rgba(45, 30, 150, 0)); animation-duration: 25s; }
+        .orb3 { width: 40vw; height: 40vw; top: 35%; left: 30%; background: radial-gradient(circle, rgba(180, 110, 255, 0.2), rgba(60, 40, 170, 0)); animation-duration: 18s; }
+
+        @keyframes floatMist {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            100% { transform: translate(5%, 7%) scale(1.15); opacity: 0.8; }
+        }
+
+        /* main container — glassmorphism with purple/blue tones */
+        .portal-container {
+            background: rgba(25, 15, 55, 0.55);
+            backdrop-filter: blur(16px);
+            border-radius: 3.5rem;
+            border: 1px solid rgba(160, 120, 255, 0.5);
+            box-shadow: 0 35px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(180, 130, 255, 0.25);
+            padding: 2.2rem 2rem 3rem;
+            width: 100%;
+            max-width: 1300px;
+            transition: all 0.3s;
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* header with mystical purple/blue gradient */
+        .portal-header {
+            margin-bottom: 2rem;
+        }
+        .portal-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d9c6ff, #b48eff, #8a6bff, #b77eff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+            text-shadow: 0 2px 12px rgba(90, 40, 180, 0.3);
+        }
+        .portal-header p {
+            color: #cdb5fc;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            font-weight: 400;
+            letter-spacing: 0.4px;
+            opacity: 0.85;
+        }
+
+        /* three flowers container — centered */
+        .flowers-sanctum {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 2.5rem;
+            margin: 2.5rem 0 1.5rem;
+        }
+
+        /* each flower card (button) with purple/blue vibes and image */
+        .flower-gate {
+            background: rgba(35, 20, 70, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 2.5rem;
+            padding: 1.5rem 1.2rem 1.8rem;
+            width: 300px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(160, 110, 255, 0.6);
+            box-shadow: 0 22px 32px -14px rgba(0, 0, 0, 0.5);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flower-gate:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: #c9a6ff;
+            background: rgba(55, 35, 100, 0.8);
+            box-shadow: 0 28px 44px -12px rgba(90, 40, 200, 0.5);
+        }
+
+        .flower-gate:active {
+            transform: translateY(-5px) scale(0.98);
+        }
+
+        /* flower image styling */
+        .flower-img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(180, 130, 255, 0.5);
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .flower-gate:hover .flower-img {
+            transform: scale(1.05);
+            box-shadow: 0 18px 32px rgba(0, 0, 0, 0.5), 0 0 0 4px rgba(200, 150, 255, 0.7);
+        }
+
+        /* flower titles with purple gradient */
+        .flower-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #e3d0ff, #c2a0ff, #b27eff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 0.5rem 0 0.3rem;
+        }
+
+        .flower-desc {
+            font-size: 0.8rem;
+            color: #cbbaf0;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+            padding: 0 0.5rem;
+            line-height: 1.4;
+        }
+
+        /* magical petal indicators (blue/purple) */
+        .petal-glow {
+            display: flex;
+            gap: 7px;
+            justify-content: center;
+            margin-top: 0.4rem;
+        }
+        .glow-dot {
+            width: 7px;
+            height: 7px;
+            background-color: #b48eff;
+            border-radius: 50%;
+            opacity: 0.6;
+            transition: 0.2s;
+            box-shadow: 0 0 3px #a56eff;
+        }
+        .flower-gate:hover .glow-dot {
+            opacity: 1;
+            background-color: #dbbaff;
+            transform: scale(1.4);
+            box-shadow: 0 0 8px #c08aff;
+        }
+
+        /* entry badge */
+        .enter-portal {
+            margin-top: 0.8rem;
+            font-size: 0.7rem;
+            background: rgba(50, 30, 100, 0.6);
+            padding: 5px 14px;
+            border-radius: 40px;
+            color: #dacbff;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            backdrop-filter: blur(2px);
+        }
+
+        .flower-gate:hover .enter-portal {
+            background: rgba(80, 50, 150, 0.8);
+            color: #f3eaff;
+            gap: 12px;
+            border: 0.5px solid #bc92ff;
+        }
+
+        /* standalone cake button styling */
+        .cake-button-container {
+            margin: 1.5rem 0 0.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .cake-btn {
+            background: linear-gradient(135deg, rgba(100, 65, 165, 0.85), rgba(140, 90, 200, 0.8));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(230, 180, 255, 0.7);
+            padding: 14px 36px;
+            border-radius: 3rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff5f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            letter-spacing: 1px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+        .cake-btn:hover {
+            background: linear-gradient(135deg, rgba(130, 85, 200, 0.95), rgba(170, 110, 240, 0.9));
+            border-color: #ffdfb8;
+            transform: translateY(-5px) scale(1.02);
+            gap: 18px;
+            box-shadow: 0 18px 32px rgba(0, 0, 0, 0.4);
+        }
+        .cake-btn:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* quit button styling */
+        .quit-button-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        .quit-btn {
+            background: rgba(80, 50, 130, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(200, 150, 255, 0.6);
+            padding: 10px 32px;
+            border-radius: 3rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #f0e2ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
+        }
+        .quit-btn:hover {
+            background: rgba(120, 70, 180, 0.85);
+            border-color: #ffb8e8;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            color: white;
+            gap: 15px;
+        }
+        .quit-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* footer */
+        .portal-footer {
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #9b87cf;
+            border-top: 1px dashed rgba(150, 120, 255, 0.4);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* responsive */
+        @media (max-width: 860px) {
+            .flowers-sanctum { gap: 1.5rem; }
+            .flower-gate { width: 260px; padding: 1.2rem 1rem 1.5rem; }
+            .flower-title { font-size: 1.5rem; }
+            .flower-img { width: 110px; height: 110px; }
+            .portal-header h1 { font-size: 2.3rem; }
+            .portal-container { padding: 1.5rem; }
+            .cake-btn { padding: 10px 28px; font-size: 1rem; }
+        }
+        @media (max-width: 620px) {
+            .flower-gate { width: 100%; max-width: 300px; }
+            .flowers-sanctum { flex-direction: column; align-items: center; }
+        }
+
+        /* entrance animation */
+        @keyframes fadeBloom {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .flower-gate {
+            animation: fadeBloom 0.55s ease backwards;
+        }
+        .flower-gate:nth-child(1) { animation-delay: 0.1s; }
+        .flower-gate:nth-child(2) { animation-delay: 0.2s; }
+        .flower-gate:nth-child(3) { animation-delay: 0.3s; }
+        .cake-btn {
+            animation: fadeBloom 0.55s ease 0.25s backwards;
+        }
+
+        /* custom cursor */
+        .flower-gate, .quit-btn, .cake-btn {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="ethereal-mist">
+    <div class="mist-orb orb1"></div>
+    <div class="mist-orb orb2"></div>
+    <div class="mist-orb orb3"></div>
+</div>
+
+<div class="portal-container">
+    <div class="portal-header">
+        <h1><i class="fas fa-moon"></i>  Choose a Flower <i class="fas fa-feather-alt"></i></h1>
+        <p>✦ three sacred flowers — each holds a unique message ✦</p>
+    </div>
+
+    <div class="flowers-sanctum">
+        <!-- WHITE ROSE BUTTON with image link -->
+        <div class="flower-gate" data-url="whiterose.html" id="flowerWhiteRose">
+            <img class="flower-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVTHT-pCN84O3bsBESGvWgkp1Q951XC1F1qQ&s" alt="White Rose" loading="lazy">
+            <div class="flower-title">White Rose</div>
+            <div class="flower-desc">Pure love · eternal devotion · silent reverence</div>
+            <div class="petal-glow">
+                <span class="glow-dot"></span><span class="glow-dot"></span><span class="glow-dot"></span>
+            </div>
+            <div class="enter-portal"><i class="fas fa-arrow-right"></i> Enter White Rose</div>
+        </div>
+
+        <!-- HYDRANGEA BUTTON with image link -->
+        <div class="flower-gate" data-url="hydrangea.html" id="flowerHydrangea">
+            <img class="flower-img" src="https://www.gardeningexpress.co.uk/media/catalog/product/cache/7b4309904d7d86d6db5a4996af690b81/p/i/pimpernel-hydrangea-large-1.jpg" alt="Hydrangea" loading="lazy">
+            <div class="flower-title">Hydrangea</div>
+            <div class="flower-desc">Gratitude · heartfelt emotion · graceful abundance</div>
+            <div class="petal-glow">
+                <span class="glow-dot"></span><span class="glow-dot"></span><span class="glow-dot"></span>
+            </div>
+            <div class="enter-portal"><i class="fas fa-arrow-right"></i> Enter Hydrangea</div>
+        </div>
+
+        <!-- LAVENDER BUTTON with image link -->
+        <div class="flower-gate" data-url="lavender.html" id="flowerLavender">
+            <img class="flower-img" src="https://m.media-amazon.com/images/I/81euKzQpXjL._AC_UF1000,1000_QL80_.jpg" alt="Lavender" loading="lazy">
+            <div class="flower-title">Lavender</div>
+            <div class="flower-desc">Calmness · serenity · peaceful dreams</div>
+            <div class="petal-glow">
+                <span class="glow-dot"></span><span class="glow-dot"></span><span class="glow-dot"></span>
+            </div>
+            <div class="enter-portal"><i class="fas fa-arrow-right"></i> Enter Lavender</div>
+        </div>
+    </div>
+
+    <!-- STANDALONE CAKE BUTTON - redirects to cake.html -->
+    <div class="cake-button-container">
+        <button class="cake-btn" id="cakeButton">
+            <i class="fas"></i>Surprise
+            <i class="fas"></i>
+        </button>
+    </div>
+
+    <!-- QUIT BUTTON - redirects to index.html -->
+    <div class="quit-button-container">
+        <button class="quit-btn" id="quitButton">
+            <i class="fas fa-sign-out-alt"></i> Exit
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="portal-footer">
+        <span><i class="fas fa-gem"></i> May 11, 2026</span>
+        <span><i class="fas fa-magic"></i> Kreizong | El & Em</span>
+    </div>
+</div>
+
+<script>
+    // ==============================================
+    // PURPLE & BLUE THEMED HOMEPAGE
+    // THREE FLOWER BUTTONS with IMAGES:
+    // - White Rose  → whiterose.html
+    // - Hydrangea   → hydrangea.html
+    // - Lavender    → lavender.html
+    // + STANDALONE CAKE BUTTON → cake.html
+    // + QUIT BUTTON → index.html
+    // Smooth fade + redirect animation.
+    // ==============================================
+
+    const flowerCards = document.querySelectorAll('.flower-gate');
+    const cakeBtn = document.getElementById('cakeButton');
+    const quitBtn = document.getElementById('quitButton');
+
+    // graceful navigation with fade-out effect
+    function navigateToPage(url) {
+        if (!url) return;
+        // apply ethereal exit animation
+        document.body.style.transition = 'opacity 0.5s ease, transform 0.4s ease';
+        document.body.style.opacity = '0';
+        document.body.style.transform = 'scale(0.97)';
+        // additional subtle effect on container
+        const container = document.querySelector('.portal-container');
+        if (container) {
+            container.style.transition = 'transform 0.3s';
+            container.style.transform = 'scale(0.98)';
+        }
+        setTimeout(() => {
+            window.location.href = url;
+        }, 430);
+    }
+
+    // attach click listeners to each flower card
+    flowerCards.forEach(card => {
+        const destination = card.getAttribute('data-url');
+        if (destination) {
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // add mini interactive feedback (shrink/grow)
+                card.style.transform = 'scale(0.96)';
+                setTimeout(() => {
+                    navigateToPage(destination);
+                }, 70);
+            });
+            // reset hover transform after click
+            card.addEventListener('mouseleave', () => {
+                if (!card.style.transform || card.style.transform === 'scale(0.96)') {
+                    card.style.transform = '';
+                }
+            });
+        }
+    });
+
+    // CAKE BUTTON: redirect to cake.html
+    if (cakeBtn) {
+        cakeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            cakeBtn.style.transform = 'scale(0.96)';
+            setTimeout(() => {
+                navigateToPage('cake.html');
+            }, 80);
+        });
+        cakeBtn.addEventListener('mouseleave', () => {
+            cakeBtn.style.transform = '';
+        });
+    }
+
+    // QUIT BUTTON: redirect to index.html
+    if (quitBtn) {
+        quitBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            quitBtn.style.transform = 'scale(0.96)';
+            setTimeout(() => {
+                navigateToPage('index.html');
+            }, 80);
+        });
+        quitBtn.addEventListener('mouseleave', () => {
+            quitBtn.style.transform = '';
+        });
+    }
+
+    // generate floating purple/blue particles for extra aesthetic
+    function createMysticParticles() {
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = Math.random() * 4 + 1 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = `radial-gradient(circle, rgba(180, 130, 255, ${Math.random() * 0.5 + 0.2}), rgba(100, 70, 200, 0))`;
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animation = `floatParticle ${Math.random() * 15 + 10}s infinite alternate ease-in-out`;
+            particle.style.zIndex = '1';
+            particle.style.opacity = '0.4';
+            particle.style.filter = 'blur(2px)';
+            document.body.appendChild(particle);
+        }
+        // add keyframe for particles if not exists
+        if (!document.querySelector('#particleKeyframeStyle')) {
+            const style = document.createElement('style');
+            style.id = 'particleKeyframeStyle';
+            style.textContent = `
+                @keyframes floatParticle {
+                    0% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+                    100% { transform: translateY(-70px) translateX(25px); opacity: 0.7; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    createMysticParticles();
+
+    // add hover tooltip titles for flowers
+    const flowerDetails = {
+        'White Rose': 'Symbolizes purity, innocence, and a love that is eternal and unconditional.',
+        'Hydrangea': 'Represents heartfelt gratitude, understanding, and the beauty of grace.',
+        'Lavender': 'Embodies calmness, devotion, and the quiet magic of peaceful dreams.'
+    };
+    
+    flowerCards.forEach(card => {
+        const titleElem = card.querySelector('.flower-title');
+        if (titleElem && flowerDetails[titleElem.innerText]) {
+            card.setAttribute('title', flowerDetails[titleElem.innerText]);
+        }
+    });
+
+    console.log('✨ Moonlit Petals | White Rose → whiterose.html | Hydrangea → hydrangea.html | Lavender → lavender.html');
+    console.log('🍰 Standalone Cake Button → cake.html');
+    console.log('🚪 Quit button redirects to index.html');
+</script>
+
+<!-- 
+    =============================================================
+    HOMEPAGE WITH 3 FLOWER BUTTONS (PURPLE & BLUE THEME)
+    -------------------------------------------------------------
+    Each flower card includes a unique image:
+    - White Rose  →  whiterose.html
+    - Hydrangea   →  hydrangea.html
+    - Lavender    →  lavender.html
+    
+    STANDALONE CAKE BUTTON (separate, not a flower card) → cake.html
+    
+    QUIT BUTTON → index.html
+    
+    The design features:
+    - Purple & blue gradient aesthetic
+    - Glassmorphism with backdrop blur
+    - Floating mystical orbs and particles
+    - Smooth hover animations and fade redirects
+    - Fully responsive layout
+    
+    Target pages: whiterose.html, hydrangea.html, lavender.html, cake.html, index.html
+    =============================================================
+-->
+</body>
+</html>
